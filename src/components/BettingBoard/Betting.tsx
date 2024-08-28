@@ -58,7 +58,7 @@ const Betting = ({
                   setMoney((prev) => prev - betCost);
                   setBet((prev) => [
                     ...prev,
-                    { number: 0, type: "straight", bet: betCost },
+                    { number: [0], type: "straight", bet: betCost },
                   ]);
                 }
               }}
