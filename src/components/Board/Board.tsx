@@ -8,7 +8,6 @@ const Board = () => {
   const [bet, setBet] = useState([]);
   const [currentNumber, setCurrentNumber] = useState(null);
   const [spinStart, setSpinStart] = useState(false);
-  const [per, setPer] = useState(100);
 
   useEffect(() => {
     if (money <= 5) {
@@ -60,11 +59,6 @@ const Board = () => {
     }
   }, [currentNumber, spinStart]);
 
-  console.log("Total :", money);
-  console.log("BetCost :", betCost);
-  console.log("Betting :", bet);
-  console.log("Number is :", currentNumber);
-
   return (
     <div className="flex h-full w-full bg-red-900">
       <div className="flex w-full flex-col items-center justify-center">
@@ -84,7 +78,6 @@ const Board = () => {
           money={money}
           setMoney={setMoney}
           spinStart={spinStart}
-          per={per}
         />
       </div>
     </div>

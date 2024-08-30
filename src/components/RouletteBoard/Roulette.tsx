@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { blackNum, redNum } from "../Numbers";
 
 const Roulette = ({
@@ -47,8 +47,22 @@ const Roulette = ({
     { value: 26, color: "black" },
   ];
 
+  const [pec, setPec] = useState(1000);
   const [boardAngle, setBoardAngle] = useState(180);
   const [ballAngle, setBallAngle] = useState(180);
+
+  useEffect(() => {
+    if (pec > 0 && !spinStart) {
+      const timer = setTimeout(() => {
+        setPec((prev) => prev - 1);
+      }, 8);
+
+      return () => clearTimeout(timer);
+    } else if (pec === 0) {
+      spinBall();
+    }
+  }, [pec, spinStart]);
+
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
   const spinBall = () => {
@@ -79,6 +93,7 @@ const Roulette = ({
           const index = Math.floor(correctedAngle / (360 / numbers.length));
           setCurrentNumber(numbers[index].value);
           setSpinStart(false);
+          setPec(1000);
         }
       };
 
@@ -86,13 +101,11 @@ const Roulette = ({
     }
   };
 
-  // useEffect(() => {
-  //   spinBall();
-  // }, []);
-
   const sin = (i: number) => {
     return (360 / 37) * i;
   };
+
+  const per = (pec / 1000) * 100;
 
   return (
     <div className="flex h-full w-full flex-1">
@@ -121,7 +134,7 @@ const Roulette = ({
             <div className="absolute h-44 w-44 rounded-full border-2 border-yellow-500 bg-black/50"></div>
             <div className="absolute h-32 w-32 rounded-full border-2 border-yellow-500 bg-gray-700"></div>
             <div
-              className={`flex h-full w-full items-center justify-center ${spinStart ? "scale-150" : "scale-110"} duration-500`}
+              className={`flex h-32 w-32 items-center justify-center ${spinStart ? "scale-150" : "scale-110"} duration-500`}
             >
               <div
                 className="absolute h-2 w-2 rounded-full border bg-white"
@@ -142,12 +155,14 @@ const Roulette = ({
           )}
         </div>
       </div>
-      <button
-        className="h-10 w-20 cursor-pointer rounded-xl border-2 bg-black"
-        onClick={() => spinBall()}
-      >
-        <p className="text-sm text-white">Spin Ball</p>
-      </button>
+      <div className="flex">
+        <div className="flex h-full w-2 rotate-180 bg-white">
+          <div
+            className={`flex w-2 bg-lime-500`}
+            style={{ height: `${per}%` }}
+          ></div>
+        </div>
+      </div>
     </div>
   );
 };

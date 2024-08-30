@@ -6,6 +6,7 @@ const RouletteBoard = ({
   betCost,
   setBetCost,
   money,
+  wonMoney,
   currentNumber,
   setCurrentNumber,
   spinStart,

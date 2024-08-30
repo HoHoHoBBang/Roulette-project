@@ -57,7 +57,13 @@ const Betting = ({
     if (matchCoins.length > 0) {
       const latestCoin = matchCoins[matchCoins.length - 1];
       const coinImage = coinImages[latestCoin.bet];
-      return <img className="absolute h-5 w-5" src={coinImage} alt="" />;
+      return (
+        <img
+          className="absolute h-7 w-7 max-md:h-5 max-md:w-5"
+          src={coinImage}
+          alt=""
+        />
+      );
     }
 
     return null;
