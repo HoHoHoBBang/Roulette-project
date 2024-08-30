@@ -3,6 +3,7 @@ import Roulette from "./Roulette";
 import Chips from "./Chips";
 
 const RouletteBoard = ({
+  betCost,
   setBetCost,
   money,
   currentNumber,
@@ -15,10 +16,11 @@ const RouletteBoard = ({
       <Roulette
         currentNumber={currentNumber}
         setCurrentNumber={setCurrentNumber}
-        spinStart={spinStart} setSpinStart={setSpinStart}
+        spinStart={spinStart}
+        setSpinStart={setSpinStart}
       />
       <div className="flex flex-1 flex-col">
-        <Chips setBetCost={setBetCost} money={money} />
+        <Chips betCost={betCost} setBetCost={setBetCost} money={money} />
       </div>
     </div>
   );

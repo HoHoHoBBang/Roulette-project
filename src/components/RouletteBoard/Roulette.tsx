@@ -47,25 +47,29 @@ const Roulette = ({
     { value: 26, color: "black" },
   ];
 
-  const [pec, setPec] = useState();
-  const [ballAngle, setBallAngle] = useState(0);
+  const [boardAngle, setBoardAngle] = useState(180);
+  const [ballAngle, setBallAngle] = useState(180);
   const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
   const spinBall = () => {
     if (!spinStart) {
       setSpinStart(true);
       const finalAngle = Math.random() * 360 + 360 * 4; // Random angle + multiple full spins
+      const finalBoardAngle = Math.random() * -360 + -360 * 1; // Random angle + multiple full spins
       const duration = 6000; // 5 seconds
       const startTime = Date.now();
       const initialAngle = ballAngle;
+      const initialBoardAngle = boardAngle;
 
       const animate = () => {
         const elapsedTime = Date.now() - startTime;
         const progress = Math.min(elapsedTime / duration, 1);
         const easedProgress = easeOutCubic(progress); // Applying the ease-out cubic function
         const angle = initialAngle + finalAngle * easedProgress;
+        const boardAngle = initialBoardAngle + finalBoardAngle * easedProgress;
 
         setBallAngle(angle % 360);
+        setBoardAngle(boardAngle % 360);
 
         if (progress < 1) {
           requestAnimationFrame(animate);
@@ -92,33 +96,40 @@ const Roulette = ({
 
   return (
     <div className="flex h-full w-full flex-1">
-      <div className="flex h-full w-full flex-col items-center justify-center">
+      <div className="flex h-full w-full flex-col">
         <div className="relative flex h-full w-full items-center justify-center">
-          {numbers.map((num, index) => (
-            <div
-              key={num.value}
-              className={`${num.color === "red" ? "bg-red-500" : num.color === "black" ? "bg-black" : "bg-green-700"} absolute w-60 border-l-2 border-yellow-500`}
-              style={{
-                transform: `rotate(${sin(index)}deg)`,
-                clipPath: "polygon(0 0, 30% 30%, 30% 70%, 0 100%)",
-              }}
-            >
-              <p className="mb-2 ml-3 flex origin-left rotate-90 items-center justify-start text-xs text-white">
-                {num.value}
-              </p>
-            </div>
-          ))}
-          <div className="absolute h-44 w-44 rounded-full border-2 border-yellow-500 bg-black/50"></div>
-          <div className="absolute h-32 w-32 rounded-full border-2 border-yellow-500 bg-gray-700"></div>
           <div
-            className={`flex h-full w-full items-center justify-center ${spinStart ? "scale-150" : "scale-110"} duration-500`}
+            className="flex h-full w-full items-center justify-center"
+            style={{
+              transform: `rotate(${boardAngle}deg)`,
+            }}
           >
+            {numbers.map((num, index) => (
+              <div
+                key={num.value}
+                className={`${num.color === "red" ? "bg-red-500" : num.color === "black" ? "bg-black" : "bg-green-700"} absolute w-60 border-l-2 border-yellow-500`}
+                style={{
+                  transform: `rotate(${sin(index)}deg)`,
+                  clipPath: "polygon(0 20%, 30% 30%, 30% 70%, 0 80%)",
+                }}
+              >
+                <p className="my-1 mb-3 ml-3 flex origin-left rotate-90 items-center justify-start text-xs text-white">
+                  {num.value}
+                </p>
+              </div>
+            ))}
+            <div className="absolute h-44 w-44 rounded-full border-2 border-yellow-500 bg-black/50"></div>
+            <div className="absolute h-32 w-32 rounded-full border-2 border-yellow-500 bg-gray-700"></div>
             <div
-              className="absolute h-2 w-2 rounded-full border bg-white"
-              style={{
-                transform: `rotate(${ballAngle}deg) translate(70px)`,
-              }}
-            ></div>
+              className={`flex h-full w-full items-center justify-center ${spinStart ? "scale-150" : "scale-110"} duration-500`}
+            >
+              <div
+                className="absolute h-2 w-2 rounded-full border bg-white"
+                style={{
+                  transform: `rotate(${ballAngle}deg) translate(70px)`,
+                }}
+              ></div>
+            </div>
           </div>
           {currentNumber !== null && (
             <div className="absolute flex h-14 w-14 items-center justify-center rounded-xl border-2 border-yellow-500 bg-black">
