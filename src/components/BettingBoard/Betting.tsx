@@ -75,7 +75,7 @@ const Betting = ({
     tdArr.push(
       <td
         key={i}
-        className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"
+        className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"
       ></td>,
     );
   }
@@ -86,7 +86,7 @@ const Betting = ({
         <thead>
           <tr>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               rowSpan={5}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -110,7 +110,7 @@ const Betting = ({
             {firstLine.map((data, index) => (
               <td
                 key={index}
-                className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev) => prev - betCost);
@@ -131,9 +131,9 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev) => prev - betCost);
@@ -158,7 +158,7 @@ const Betting = ({
             {secondLine.map((data, index) => (
               <td
                 key={index}
-                className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev) => prev - betCost);
@@ -180,14 +180,14 @@ const Betting = ({
               </td>
             ))}
 
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
           </tr>
           <tr>
             {thirdLine.map((data, index) => (
               <td
                 key={index}
-                className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev) => prev - betCost);
@@ -208,9 +208,9 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev) => prev - betCost);
@@ -235,7 +235,7 @@ const Betting = ({
             {forthLine.map((data, index) => (
               <td
                 key={index}
-                className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev) => prev - betCost);
@@ -256,14 +256,14 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
           </tr>
           <tr>
             {fifthLine.map((data, index) => (
               <td
                 key={index}
-                className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev) => prev - betCost);
@@ -284,9 +284,9 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev) => prev - betCost);
@@ -308,11 +308,11 @@ const Betting = ({
             </td>
           </tr>
           <tr>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             {sixthLine.map((data, index) => (
               <td
                 key={index}
-                className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev) => prev - betCost);
@@ -333,16 +333,16 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
           </tr>
         </thead>
         <thead>
           <tr>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -363,9 +363,9 @@ const Betting = ({
                 {betCoin(first12)}
               </div>
             </td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -386,9 +386,9 @@ const Betting = ({
                 {betCoin(second12)}
               </div>
             </td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -409,15 +409,15 @@ const Betting = ({
                 {betCoin(third12)}
               </div>
             </td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
           </tr>
           <tr>{tdArr}</tr>
           <tr>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -438,9 +438,9 @@ const Betting = ({
                 {betCoin(oneTo18)}
               </div>
             </td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -461,9 +461,9 @@ const Betting = ({
                 {betCoin(evenNum)}
               </div>
             </td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -484,9 +484,9 @@ const Betting = ({
                 {betCoin(redNum)}
               </div>
             </td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -507,9 +507,9 @@ const Betting = ({
                 {betCoin(blackNum)}
               </div>
             </td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -530,9 +530,9 @@ const Betting = ({
                 {betCoin(oddNum)}
               </div>
             </td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-4 w-[33px] cursor-pointer max-md:h-[11.5px] max-md:w-[23px]"
+              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -553,8 +553,8 @@ const Betting = ({
                 {betCoin(nineteenTo36)}
               </div>
             </td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
-            <td className="h-4 w-[33px] max-md:h-[11.5px] max-md:w-[23px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
           </tr>
         </thead>
       </table>

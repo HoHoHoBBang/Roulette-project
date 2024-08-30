@@ -120,24 +120,24 @@ const Roulette = ({
             {numbers.map((num, index) => (
               <div
                 key={num.value}
-                className={`${num.color === "red" ? "bg-red-500" : num.color === "black" ? "bg-black" : "bg-green-700"} absolute w-60 border-l-2 border-yellow-500`}
+                className={`${num.color === "red" ? "bg-red-500" : num.color === "black" ? "bg-black" : "bg-green-700"} absolute w-80 border-l-2 border-yellow-500`}
                 style={{
                   transform: `rotate(${sin(index)}deg)`,
-                  clipPath: "polygon(0 20%, 30% 30%, 30% 70%, 0 80%)",
+                  clipPath: "polygon(0 25%, 30% 30%, 30% 70%, 0 95%)",
                 }}
               >
-                <p className="my-1 mb-3 ml-3 flex origin-left rotate-90 items-center justify-start text-xs text-white">
+                <p className="my-1 mb-3 ml-3 flex origin-left rotate-90 items-center justify-start text-sm text-white">
                   {num.value}
                 </p>
               </div>
             ))}
-            <div className="absolute h-44 w-44 rounded-full border-2 border-yellow-500 bg-black/50"></div>
-            <div className="absolute h-32 w-32 rounded-full border-2 border-yellow-500 bg-gray-700"></div>
+            <div className="absolute h-60 w-60 rounded-full border-2 border-yellow-500 bg-black/50"></div>
+            <div className="absolute h-40 w-40 rounded-full border-2 border-yellow-500 bg-gray-700"></div>
             <div
-              className={`flex h-32 w-32 items-center justify-center ${spinStart ? "scale-150" : "scale-110"} duration-500`}
+              className={`flex h-60 w-60 items-center justify-center ${spinStart ? "scale-150" : "scale-125"} duration-500`}
             >
               <div
-                className="absolute h-2 w-2 rounded-full border bg-white"
+                className="absolute h-3 w-3 rounded-full border bg-white"
                 style={{
                   transform: `rotate(${ballAngle}deg) translate(70px)`,
                 }}
@@ -145,7 +145,7 @@ const Roulette = ({
             </div>
           </div>
           {currentNumber !== null && (
-            <div className="absolute flex h-14 w-14 items-center justify-center rounded-xl border-2 border-yellow-500 bg-black">
+            <div className="absolute flex h-20 w-20 items-center justify-center rounded-xl border-2 border-yellow-500 bg-black">
               <p
                 className={`absolute ${redNum.includes(currentNumber) ? "text-red-500" : blackNum.includes(currentNumber) ? "text-yellow-500" : "text-green-500"} text-4xl font-bold`}
               >
@@ -156,9 +156,9 @@ const Roulette = ({
         </div>
       </div>
       <div className="flex">
-        <div className="flex h-full w-2 rotate-180 bg-white">
+        <div className="flex h-full w-3 rotate-180 overflow-hidden rounded-lg bg-white">
           <div
-            className={`flex w-2 bg-lime-500`}
+            className={`flex w-3 bg-lime-500`}
             style={{ height: `${per}%` }}
           ></div>
         </div>
