@@ -1,13 +1,23 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BettingBoard from "../BettingBoard/BettingBoard";
 import RouletteBoard from "../RouletteBoard/RouletteBoard";
 
-const Board = () => {
-  const [betCost, setBetCost] = useState(1);
-  const [money, setMoney] = useState(100);
-  const [bet, setBet] = useState([]);
-  const [currentNumber, setCurrentNumber] = useState(null);
-  const [spinStart, setSpinStart] = useState(false);
+interface Props {
+  mobile: boolean;
+}
+
+export interface BetItemsProps {
+  number: number[];
+  type: string;
+  bet: number;
+}
+
+const Board = ({ mobile }: Props) => {
+  const [betCost, setBetCost] = useState<number>(1);
+  const [money, setMoney] = useState<number>(100);
+  const [bet, setBet] = useState<BetItemsProps[]>([]);
+  const [currentNumber, setCurrentNumber] = useState<number | null>(null);
+  const [spinStart, setSpinStart] = useState<boolean>(false);
 
   useEffect(() => {
     if (money <= 5) {
@@ -17,8 +27,8 @@ const Board = () => {
 
   useEffect(() => {
     if (currentNumber !== null && !spinStart) {
-      bet.forEach((betItems) => {
-        betItems.number.forEach((betNumber) => {
+      bet.forEach((betItems: BetItemsProps) => {
+        betItems.number.forEach((betNumber: number) => {
           if (betNumber === currentNumber) {
             switch (betItems.type) {
               case "straight":
@@ -70,6 +80,7 @@ const Board = () => {
           setCurrentNumber={setCurrentNumber}
           spinStart={spinStart}
           setSpinStart={setSpinStart}
+          mobile={mobile}
         />
         <BettingBoard
           betCost={betCost}
@@ -78,6 +89,7 @@ const Board = () => {
           money={money}
           setMoney={setMoney}
           spinStart={spinStart}
+          mobile={mobile}
         />
       </div>
     </div>

@@ -1,11 +1,16 @@
-import React from "react";
 import $1 from "../../assets/images/$1.png";
 import $5 from "../../assets/images/$5.png";
 import $10 from "../../assets/images/$10.png";
 import $100 from "../../assets/images/$100.png";
 import $1000 from "../../assets/images/$1000.png";
 
-const Chips = ({ betCost, setBetCost, money }: any) => {
+interface Props {
+  betCost: number;
+  setBetCost: React.Dispatch<React.SetStateAction<number>>;
+  money: number;
+}
+
+const Chips = ({ betCost, setBetCost, money }: Props) => {
   return (
     <div className="flex h-full w-full items-center justify-around">
       <div className="flex h-32 w-2/3 flex-col items-center justify-center gap-2">

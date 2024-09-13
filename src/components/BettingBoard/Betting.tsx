@@ -1,4 +1,3 @@
-import React from "react";
 import {
   blackNum,
   evenNum,
@@ -24,10 +23,22 @@ import $5 from "../../assets/images/$5.png";
 import $10 from "../../assets/images/$10.png";
 import $100 from "../../assets/images/$100.png";
 import $1000 from "../../assets/images/$1000.png";
+import { BetItemsProps } from "../Board/Board";
 
 interface Props {
   setHovering: React.Dispatch<React.SetStateAction<boolean>>;
   setNumList: React.Dispatch<React.SetStateAction<number[]>>;
+  betCost: number;
+  bet: BetItemsProps[];
+  setBet: React.Dispatch<React.SetStateAction<BetItemsProps[]>>;
+  money: number;
+  setMoney: React.Dispatch<React.SetStateAction<number>>;
+  spinStart: boolean;
+  mobile: boolean;
+}
+
+interface coinImagesProps {
+  [number: number]: string;
 }
 
 const Betting = ({
@@ -39,8 +50,9 @@ const Betting = ({
   money,
   setMoney,
   spinStart,
-}: any) => {
-  const coinImages = {
+  mobile,
+}: Props) => {
+  const coinImages: coinImagesProps = {
     1: $1,
     5: $5,
     10: $10,
@@ -50,7 +62,7 @@ const Betting = ({
 
   const betCoin = (number: number[]) => {
     const matchCoins = bet.filter(
-      (betItem: any) =>
+      (betItem: BetItemsProps) =>
         JSON.stringify(betItem.number) === JSON.stringify(number),
     );
 
@@ -59,7 +71,7 @@ const Betting = ({
       const coinImage = coinImages[latestCoin.bet];
       return (
         <img
-          className="absolute h-7 w-7 max-md:h-5 max-md:w-5"
+          className={`${mobile ? "max-xl:h-3.5 max-xl:w-3.5" : "max-xl:h-5 max-xl:w-5"} absolute h-6 w-6`}
           src={coinImage}
           alt=""
         />
@@ -75,7 +87,7 @@ const Betting = ({
     tdArr.push(
       <td
         key={i}
-        className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"
+        className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
       ></td>,
     );
   }
@@ -86,12 +98,12 @@ const Betting = ({
         <thead>
           <tr>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               rowSpan={5}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: [0], type: "straight", bet: betCost },
                   ]);
@@ -110,11 +122,11 @@ const Betting = ({
             {firstLine.map((data, index) => (
               <td
                 key={index}
-                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
-                    setMoney((prev) => prev - betCost);
-                    setBet((prev) => [
+                    setMoney((prev: number) => prev - betCost);
+                    setBet((prev: BetItemsProps[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -131,13 +143,15 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: thirdNum, type: "column", bet: betCost },
                   ]);
@@ -158,11 +172,11 @@ const Betting = ({
             {secondLine.map((data, index) => (
               <td
                 key={index}
-                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
-                    setMoney((prev) => prev - betCost);
-                    setBet((prev) => [
+                    setMoney((prev: number) => prev - betCost);
+                    setBet((prev: BetItemsProps[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -180,18 +194,22 @@ const Betting = ({
               </td>
             ))}
 
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
           </tr>
           <tr>
             {thirdLine.map((data, index) => (
               <td
                 key={index}
-                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
-                    setMoney((prev) => prev - betCost);
-                    setBet((prev) => [
+                    setMoney((prev: number) => prev - betCost);
+                    setBet((prev: BetItemsProps[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -208,13 +226,15 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: secondNum, type: "column", bet: betCost },
                   ]);
@@ -235,11 +255,11 @@ const Betting = ({
             {forthLine.map((data, index) => (
               <td
                 key={index}
-                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
-                    setMoney((prev) => prev - betCost);
-                    setBet((prev) => [
+                    setMoney((prev: number) => prev - betCost);
+                    setBet((prev: BetItemsProps[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -256,18 +276,22 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
           </tr>
           <tr>
             {fifthLine.map((data, index) => (
               <td
                 key={index}
-                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
-                    setMoney((prev) => prev - betCost);
-                    setBet((prev) => [
+                    setMoney((prev: number) => prev - betCost);
+                    setBet((prev: BetItemsProps[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -284,13 +308,15 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: firstNum, type: "column", bet: betCost },
                   ]);
@@ -308,15 +334,17 @@ const Betting = ({
             </td>
           </tr>
           <tr>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
             {sixthLine.map((data, index) => (
               <td
                 key={index}
-                className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
-                    setMoney((prev) => prev - betCost);
-                    setBet((prev) => [
+                    setMoney((prev: number) => prev - betCost);
+                    setBet((prev: BetItemsProps[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -333,21 +361,29 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
           </tr>
         </thead>
         <thead>
           <tr>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: first12, type: "dozen", bet: betCost },
                   ]);
@@ -363,14 +399,16 @@ const Betting = ({
                 {betCoin(first12)}
               </div>
             </td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: second12, type: "dozen", bet: betCost },
                   ]);
@@ -386,14 +424,16 @@ const Betting = ({
                 {betCoin(second12)}
               </div>
             </td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: third12, type: "dozen", bet: betCost },
                   ]);
@@ -409,20 +449,28 @@ const Betting = ({
                 {betCoin(third12)}
               </div>
             </td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
           </tr>
           <tr>{tdArr}</tr>
           <tr>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: oneTo18, type: "low", bet: betCost },
                   ]);
@@ -438,14 +486,16 @@ const Betting = ({
                 {betCoin(oneTo18)}
               </div>
             </td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: evenNum, type: "even", bet: betCost },
                   ]);
@@ -461,14 +511,16 @@ const Betting = ({
                 {betCoin(evenNum)}
               </div>
             </td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: redNum, type: "red", bet: betCost },
                   ]);
@@ -484,14 +536,16 @@ const Betting = ({
                 {betCoin(redNum)}
               </div>
             </td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: blackNum, type: "black", bet: betCost },
                   ]);
@@ -507,14 +561,16 @@ const Betting = ({
                 {betCoin(blackNum)}
               </div>
             </td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: oddNum, type: "odd", bet: betCost },
                   ]);
@@ -530,14 +586,16 @@ const Betting = ({
                 {betCoin(oddNum)}
               </div>
             </td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
             <td
-              className="h-[18px] w-[49px] cursor-pointer max-lg:h-[18px] max-lg:w-[33px]"
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
-                  setMoney((prev) => prev - betCost);
-                  setBet((prev) => [
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsProps[]) => [
                     ...prev,
                     { number: nineteenTo36, type: "high", bet: betCost },
                   ]);
@@ -553,8 +611,12 @@ const Betting = ({
                 {betCoin(nineteenTo36)}
               </div>
             </td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
-            <td className="h-[18px] w-[49px] max-lg:h-[18px] max-lg:w-[33px]"></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
+            <td
+              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+            ></td>
           </tr>
         </thead>
       </table>

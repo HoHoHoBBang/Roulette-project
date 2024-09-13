@@ -1,12 +1,21 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { blackNum, redNum } from "../Numbers";
+
+interface Props {
+  currentNumber: number | null;
+  setCurrentNumber: React.Dispatch<React.SetStateAction<number | null>>;
+  spinStart: boolean;
+  setSpinStart: React.Dispatch<React.SetStateAction<boolean>>;
+  mobile: boolean;
+}
 
 const Roulette = ({
   currentNumber,
   setCurrentNumber,
   spinStart,
   setSpinStart,
-}: any) => {
+  mobile,
+}: Props) => {
   const numbers = [
     { value: 0, color: "green" },
     { value: 32, color: "red" },
@@ -63,14 +72,14 @@ const Roulette = ({
     }
   }, [pec, spinStart]);
 
-  const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+  const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
   const spinBall = () => {
     if (!spinStart) {
       setSpinStart(true);
-      const finalAngle = Math.random() * 360 + 360 * 4; // Random angle + multiple full spins
-      const finalBoardAngle = Math.random() * -360 + -360 * 1; // Random angle + multiple full spins
-      const duration = 6000; // 5 seconds
+      const finalAngle = Math.random() * 360 + 360 * 4;
+      const finalBoardAngle = Math.random() * -360 + -360 * 1;
+      const duration = 6000;
       const startTime = Date.now();
       const initialAngle = ballAngle;
       const initialBoardAngle = boardAngle;
@@ -78,7 +87,7 @@ const Roulette = ({
       const animate = () => {
         const elapsedTime = Date.now() - startTime;
         const progress = Math.min(elapsedTime / duration, 1);
-        const easedProgress = easeOutCubic(progress); // Applying the ease-out cubic function
+        const easedProgress = easeOutCubic(progress);
         const angle = initialAngle + finalAngle * easedProgress;
         const boardAngle = initialBoardAngle + finalBoardAngle * easedProgress;
 
@@ -88,8 +97,7 @@ const Roulette = ({
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
-          // Calculate the resulting number
-          const correctedAngle = (angle + 185) % 360; // Correct the angle by adding 185 degrees
+          const correctedAngle = (angle + 185) % 360;
           const index = Math.floor(correctedAngle / (360 / numbers.length));
           setCurrentNumber(numbers[index].value);
           setSpinStart(false);
@@ -120,24 +128,30 @@ const Roulette = ({
             {numbers.map((num, index) => (
               <div
                 key={num.value}
-                className={`${num.color === "red" ? "bg-red-500" : num.color === "black" ? "bg-black" : "bg-green-700"} absolute w-80 border-l-2 border-yellow-500`}
+                className={`${num.color === "red" ? "bg-red-500" : num.color === "black" ? "bg-black" : "bg-green-700"} absolute w-80 border-l-2 border-yellow-500 ${mobile ? "border-l max-xl:w-44" : "max-lg:w-64"}`}
                 style={{
                   transform: `rotate(${sin(index)}deg)`,
-                  clipPath: "polygon(0 25%, 30% 30%, 30% 70%, 0 95%)",
+                  clipPath: `${mobile ? "polygon(0 25%, 50% 50%, 50% 50%, 0 75%)" : "polygon(0 10%, 50% 50%, 50% 50%, 0 90%)"}`,
                 }}
               >
-                <p className="my-1 mb-3 ml-3 flex origin-left rotate-90 items-center justify-start text-sm text-white">
+                <p
+                  className={`my-0.5 mb-2.5 ml-3 ${mobile ? "max-xl:mb-2 max-xl:ml-2 max-xl:text-[8px]" : "max-lg:mb-1.5 max-lg:ml-2 max-lg:text-[10px]"} flex origin-left rotate-90 items-center justify-start text-sm text-white`}
+                >
                   {num.value}
                 </p>
               </div>
             ))}
-            <div className="absolute h-60 w-60 rounded-full border-2 border-yellow-500 bg-black/50"></div>
-            <div className="absolute h-40 w-40 rounded-full border-2 border-yellow-500 bg-gray-700"></div>
             <div
-              className={`flex h-60 w-60 items-center justify-center ${spinStart ? "scale-150" : "scale-125"} duration-500`}
+              className={`${mobile ? "max-xl:h-36 max-xl:w-36" : "max-lg:h-52 max-lg:w-52"} absolute h-60 w-60 rounded-full border-2 border-yellow-500 bg-black/50`}
+            ></div>
+            <div
+              className={`${mobile ? "max-xl:h-28 max-xl:w-28" : "max-lg:h-40 max-lg:w-40"} absolute h-40 w-40 rounded-full border-2 border-yellow-500 bg-gray-700`}
+            ></div>
+            <div
+              className={`flex items-center justify-center ${spinStart ? `scale-150 ${mobile ? "max-xl:scale-110" : "max-lg:scale-150"}` : `scale-125 ${mobile ? "max-xl:scale-90" : "max-lg:scale-120"} `} duration-500`}
             >
               <div
-                className="absolute h-3 w-3 rounded-full border bg-white"
+                className={`absolute h-2.5 w-2.5 rounded-full border bg-white ${mobile ? "max-xl:h-2 max-xl:w-2" : "max-lg:h-2 max-lg:w-2"}`}
                 style={{
                   transform: `rotate(${ballAngle}deg) translate(70px)`,
                 }}
@@ -145,9 +159,9 @@ const Roulette = ({
             </div>
           </div>
           {currentNumber !== null && (
-            <div className="absolute flex h-20 w-20 items-center justify-center rounded-xl border-2 border-yellow-500 bg-black">
+            <div className="absolute flex h-20 w-20 items-center justify-center rounded-xl border-2 border-yellow-500 bg-black max-lg:h-16 max-lg:w-16">
               <p
-                className={`absolute ${redNum.includes(currentNumber) ? "text-red-500" : blackNum.includes(currentNumber) ? "text-yellow-500" : "text-green-500"} text-4xl font-bold`}
+                className={`absolute ${redNum.includes(currentNumber) ? "text-red-500" : blackNum.includes(currentNumber) ? "text-yellow-500" : "text-green-500"} text-4xl font-bold max-lg:text-3xl`}
               >
                 {currentNumber}
               </p>
