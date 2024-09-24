@@ -87,7 +87,7 @@ const Betting = ({
     tdArr.push(
       <td
         key={i}
-        className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+        className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
       ></td>,
     );
   }
@@ -98,7 +98,7 @@ const Betting = ({
         <thead>
           <tr>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               rowSpan={5}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -122,7 +122,7 @@ const Betting = ({
             {firstLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
@@ -144,10 +144,10 @@ const Betting = ({
               </td>
             ))}
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
@@ -172,7 +172,7 @@ const Betting = ({
             {secondLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
@@ -195,17 +195,17 @@ const Betting = ({
             ))}
 
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
           </tr>
           <tr>
             {thirdLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
@@ -227,10 +227,10 @@ const Betting = ({
               </td>
             ))}
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
@@ -255,7 +255,7 @@ const Betting = ({
             {forthLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
@@ -277,17 +277,17 @@ const Betting = ({
               </td>
             ))}
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
           </tr>
           <tr>
             {fifthLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
@@ -309,10 +309,10 @@ const Betting = ({
               </td>
             ))}
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
@@ -335,12 +335,12 @@ const Betting = ({
           </tr>
           <tr>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             {sixthLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
@@ -362,23 +362,23 @@ const Betting = ({
               </td>
             ))}
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
           </tr>
         </thead>
         <thead>
           <tr>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -400,10 +400,10 @@ const Betting = ({
               </div>
             </td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -425,10 +425,10 @@ const Betting = ({
               </div>
             </td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -450,22 +450,22 @@ const Betting = ({
               </div>
             </td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
           </tr>
           <tr>{tdArr}</tr>
           <tr>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -487,10 +487,10 @@ const Betting = ({
               </div>
             </td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -512,10 +512,10 @@ const Betting = ({
               </div>
             </td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -537,10 +537,10 @@ const Betting = ({
               </div>
             </td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -562,10 +562,10 @@ const Betting = ({
               </div>
             </td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -587,10 +587,10 @@ const Betting = ({
               </div>
             </td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer bg-blue-500/50 max-xl:w-[41px]`}
+              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
@@ -612,10 +612,10 @@ const Betting = ({
               </div>
             </td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
             <td
-              className={`h-[18px] w-[49px] bg-blue-500/50 max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
+              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
             ></td>
           </tr>
         </thead>
