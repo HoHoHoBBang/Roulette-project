@@ -1,11 +1,13 @@
 import {
   blackNum,
+  dozenLine,
   evenNum,
   fifthLine,
   first12,
   firstLine,
   firstNum,
   forthLine,
+  lowHighLine,
   nineteenTo36,
   oddNum,
   oneTo18,
@@ -14,45 +16,35 @@ import {
   secondLine,
   secondNum,
   sixthLine,
+  splitLine,
   third12,
   thirdLine,
   thirdNum,
-} from "../Numbers";
+} from "../../assets/betNumbers";
 import $1 from "../../assets/images/$1.png";
 import $5 from "../../assets/images/$5.png";
 import $10 from "../../assets/images/$10.png";
 import $100 from "../../assets/images/$100.png";
 import $1000 from "../../assets/images/$1000.png";
-import { BetItemsProps } from "../Board/Board";
+import { BetItemsType } from "../Board/Board";
+import { useContext } from "react";
+import { BettingContext } from "../../context/BettingContext";
+import { RouletteContext } from "../../context/RouletteContext";
 
 interface Props {
   setHovering: React.Dispatch<React.SetStateAction<boolean>>;
   setNumList: React.Dispatch<React.SetStateAction<number[]>>;
-  betCost: number;
-  bet: BetItemsProps[];
-  setBet: React.Dispatch<React.SetStateAction<BetItemsProps[]>>;
-  money: number;
-  setMoney: React.Dispatch<React.SetStateAction<number>>;
-  spinStart: boolean;
-  mobile: boolean;
 }
 
-interface coinImagesProps {
+interface coinImagesType {
   [number: number]: string;
 }
 
-const Betting = ({
-  setHovering,
-  setNumList,
-  betCost,
-  bet,
-  setBet,
-  money,
-  setMoney,
-  spinStart,
-  mobile,
-}: Props) => {
-  const coinImages: coinImagesProps = {
+const Betting = ({ setHovering, setNumList }: Props) => {
+  const { spinStart } = useContext(RouletteContext);
+  const { betCost, bet, setBet, money, setMoney } = useContext(BettingContext);
+
+  const coinImages: coinImagesType = {
     1: $1,
     5: $5,
     10: $10,
@@ -62,48 +54,37 @@ const Betting = ({
 
   const betCoin = (number: number[]) => {
     const matchCoins = bet.filter(
-      (betItem: BetItemsProps) =>
+      (betItem: BetItemsType) =>
         JSON.stringify(betItem.number) === JSON.stringify(number),
     );
 
     if (matchCoins.length > 0) {
       const latestCoin = matchCoins[matchCoins.length - 1];
       const coinImage = coinImages[latestCoin.bet];
-      return (
-        <img
-          className={`${mobile ? "max-xl:h-3.5 max-xl:w-3.5" : "max-xl:h-5 max-xl:w-5"} absolute h-6 w-6`}
-          src={coinImage}
-          alt=""
-        />
-      );
+      return <img className={`absolute w-6`} src={coinImage} alt="" />;
     }
 
     return null;
   };
 
-  const tdArr = [];
-
-  for (let i = 0; i < 27; i++) {
-    tdArr.push(
-      <td
-        key={i}
-        className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-      ></td>,
-    );
-  }
-
   return (
-    <div className="absolute flex h-full w-full justify-center">
-      <table className="flex w-full flex-col items-center justify-center">
+    <div className="absolute mt-2 flex h-full w-full items-center justify-center sm:px-2 md:px-0">
+      <table className="flex w-full flex-col items-center justify-center sm:hidden">
         <thead>
           <tr>
+            <td colSpan={11} className={`h-[13.8px] w-[57px]`}></td>
+          </tr>
+
+          <tr>
+            <td rowSpan={28} className={`h-[13.8px] w-[57px]`}></td>
+            <td colSpan={2} className={`h-[13.8px] w-[57px]`}></td>
             <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
-              rowSpan={5}
+              className={`h-[13.8px] w-[57px] cursor-pointer`}
+              colSpan={5}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
                     { number: [0], type: "straight", bet: betCost },
                   ]);
@@ -119,14 +100,216 @@ const Betting = ({
                 {betCoin([0])}
               </div>
             </td>
+            <td rowSpan={25} className={`h-[13.8px] w-[57px]`}></td>
+            <td className={`h-[13.8px] w-[57px]`}></td>
+
+            <td rowSpan={28} className={`h-[13.8px] w-[57px]`}></td>
+          </tr>
+
+          {splitLine.map((datas, indexes) => (
+            <tr key={indexes}>
+              {indexes % 4 === 0 && indexes / 4 < lowHighLine.length ? (
+                <td
+                  className={`h-[13.8px] w-[57px] cursor-pointer`}
+                  rowSpan={4}
+                  onClick={() => {
+                    if (money > 0 && !spinStart) {
+                      setMoney((prev: number) => prev - betCost);
+                      setBet((prev: BetItemsType[]) => [
+                        ...prev,
+                        {
+                          number: lowHighLine[indexes / 4],
+                          type: "lowHigh",
+                          bet: betCost,
+                        },
+                      ]);
+                    }
+                  }}
+                  onMouseOver={() => {
+                    setHovering(true);
+                    setNumList(lowHighLine[indexes / 4]);
+                  }}
+                  onMouseOut={() => setHovering(false)}
+                >
+                  <div className="relative flex items-center justify-center">
+                    {betCoin(lowHighLine[indexes / 4])}
+                  </div>
+                </td>
+              ) : null}
+
+              {datas.map((data, index) => (
+                <td
+                  key={index}
+                  className={`h-[13.8px] w-[57px] cursor-pointer`}
+                  onClick={() => {
+                    if (money > 0 && !spinStart) {
+                      setMoney((prev: number) => prev - betCost);
+                      setBet((prev: BetItemsType[]) => [
+                        ...prev,
+                        { number: data.number, type: data.type, bet: betCost },
+                      ]);
+                    }
+                  }}
+                  onMouseOver={() => {
+                    setHovering(true);
+                    setNumList(data.number);
+                  }}
+                  onMouseOut={() => setHovering(false)}
+                >
+                  <div className="relative flex items-center justify-center">
+                    {betCoin(data.number)}
+                  </div>
+                </td>
+              ))}
+
+              {indexes % 8 === 0 && indexes / 8 < lowHighLine.length ? (
+                <td
+                  className={`h-[13.8px] w-[57px] cursor-pointer`}
+                  rowSpan={8}
+                  onClick={() => {
+                    if (money > 0 && !spinStart) {
+                      setMoney((prev: number) => prev - betCost);
+                      setBet((prev: BetItemsType[]) => [
+                        ...prev,
+                        {
+                          number: dozenLine[indexes / 8],
+                          type: "dozenColumn",
+                          bet: betCost,
+                        },
+                      ]);
+                    }
+                  }}
+                  onMouseOver={() => {
+                    setHovering(true);
+                    setNumList(dozenLine[indexes / 8]);
+                  }}
+                  onMouseOut={() => setHovering(false)}
+                >
+                  <div className="relative flex items-center justify-center">
+                    {betCoin(dozenLine[indexes / 8])}
+                  </div>
+                </td>
+              ) : null}
+            </tr>
+          ))}
+
+          <tr>
+            <td colSpan={9} className={`h-[13.8px] w-[57px]`}></td>
+          </tr>
+
+          <tr>
+            <td colSpan={2} className={`h-[13.8px] w-[57px]`}></td>
+            <td
+              className={`h-[13.8px] w-[57px] cursor-pointer`}
+              onClick={() => {
+                if (money > 0 && !spinStart) {
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsType[]) => [
+                    ...prev,
+                    { number: firstNum, type: "dozenColumn", bet: betCost },
+                  ]);
+                }
+              }}
+              onMouseOver={() => {
+                setHovering(true);
+                setNumList(firstNum);
+              }}
+              onMouseOut={() => setHovering(false)}
+            >
+              <div className="relative flex items-center justify-center">
+                {betCoin(firstNum)}
+              </div>
+            </td>
+            <td className={`h-[13.8px] w-[57px]`}></td>
+            <td
+              className={`h-[13.8px] w-[57px] cursor-pointer`}
+              onClick={() => {
+                if (money > 0 && !spinStart) {
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsType[]) => [
+                    ...prev,
+                    { number: secondNum, type: "dozenColumn", bet: betCost },
+                  ]);
+                }
+              }}
+              onMouseOver={() => {
+                setHovering(true);
+                setNumList(secondNum);
+              }}
+              onMouseOut={() => setHovering(false)}
+            >
+              <div className="relative flex items-center justify-center">
+                {betCoin(secondNum)}
+              </div>
+            </td>
+            <td className={`h-[13.8px] w-[57px]`}></td>
+            <td
+              className={`h-[13.8px] w-[57px] cursor-pointer`}
+              onClick={() => {
+                if (money > 0 && !spinStart) {
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsType[]) => [
+                    ...prev,
+                    { number: thirdNum, type: "dozenColumn", bet: betCost },
+                  ]);
+                }
+              }}
+              onMouseOver={() => {
+                setHovering(true);
+                setNumList(thirdNum);
+              }}
+              onMouseOut={() => setHovering(false)}
+            >
+              <div className="relative flex items-center justify-center">
+                {betCoin(thirdNum)}
+              </div>
+            </td>
+            <td colSpan={2} className={`h-[13.8px] w-[57px]`}></td>
+          </tr>
+          <tr>
+            <td colSpan={11} className={`h-[13.8px] w-[57px]`}></td>
+          </tr>
+        </thead>
+      </table>
+      <table className="hidden w-full flex-col sm:flex">
+        <thead>
+          <tr>
+            <td colSpan={29} className={`h-[20px] w-[53px]`}></td>
+          </tr>
+
+          <tr>
+            <td rowSpan={5} className={`h-[20px] w-[53px]`}></td>
+            <td
+              className={`h-[20px] w-[53px] cursor-pointer`}
+              rowSpan={5}
+              onClick={() => {
+                if (money > 0 && !spinStart) {
+                  setMoney((prev: number) => prev - betCost);
+                  setBet((prev: BetItemsType[]) => [
+                    ...prev,
+                    { number: [0], type: "straight", bet: betCost },
+                  ]);
+                }
+              }}
+              onMouseOver={() => {
+                setHovering(true);
+                setNumList([0]);
+              }}
+              onMouseOut={() => setHovering(false)}
+            >
+              <div className="relative flex items-center justify-center">
+                {betCoin([0])}
+              </div>
+            </td>
+
             {firstLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+                className={`h-[20px] w-[53px] cursor-pointer`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
-                    setBet((prev: BetItemsProps[]) => [
+                    setBet((prev: BetItemsType[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -143,17 +326,15 @@ const Betting = ({
                 </div>
               </td>
             ))}
+            <td rowSpan={5} className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: thirdNum, type: "column", bet: betCost },
+                    { number: thirdNum, type: "dozenColumn", bet: betCost },
                   ]);
                 }
               }}
@@ -167,16 +348,47 @@ const Betting = ({
                 {betCoin(thirdNum)}
               </div>
             </td>
+            <td rowSpan={5} className={`h-[20px] w-[53px]`}></td>
           </tr>
+
           <tr>
             {secondLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+                className={`h-[20px] w-[53px] cursor-pointer`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
-                    setBet((prev: BetItemsProps[]) => [
+                    setBet((prev: BetItemsType[]) => [
+                      ...prev,
+                      { number: data.number, type: data.type, bet: betCost },
+                    ]);
+                  }
+                }}
+                onMouseOver={() => {
+                  setHovering(true);
+                  setNumList(data.number);
+                }}
+                onMouseOut={() => setHovering(false)}
+              >
+                <div className="relative flex items-center justify-center">
+                  {betCoin(data.number)}
+                </div>
+              </td>
+            ))}
+
+            <td className={`h-[20px] w-[53px]`}></td>
+          </tr>
+
+          <tr>
+            {thirdLine.map((data, index) => (
+              <td
+                key={index}
+                className={`h-[20px] w-[53px] cursor-pointer`}
+                onClick={() => {
+                  if (money > 0 && !spinStart) {
+                    setMoney((prev: number) => prev - betCost);
+                    setBet((prev: BetItemsType[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -195,48 +407,13 @@ const Betting = ({
             ))}
 
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-          </tr>
-          <tr>
-            {thirdLine.map((data, index) => (
-              <td
-                key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
-                onClick={() => {
-                  if (money > 0 && !spinStart) {
-                    setMoney((prev: number) => prev - betCost);
-                    setBet((prev: BetItemsProps[]) => [
-                      ...prev,
-                      { number: data.number, type: data.type, bet: betCost },
-                    ]);
-                  }
-                }}
-                onMouseOver={() => {
-                  setHovering(true);
-                  setNumList(data.number);
-                }}
-                onMouseOut={() => setHovering(false)}
-              >
-                <div className="relative flex items-center justify-center">
-                  {betCoin(data.number)}
-                </div>
-              </td>
-            ))}
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: secondNum, type: "column", bet: betCost },
+                    { number: secondNum, type: "dozenColumn", bet: betCost },
                   ]);
                 }
               }}
@@ -251,15 +428,16 @@ const Betting = ({
               </div>
             </td>
           </tr>
+
           <tr>
             {forthLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+                className={`h-[20px] w-[53px] cursor-pointer`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
-                    setBet((prev: BetItemsProps[]) => [
+                    setBet((prev: BetItemsType[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -276,22 +454,19 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
+
+            <td className={`h-[20px] w-[53px]`}></td>
           </tr>
+
           <tr>
             {fifthLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+                className={`h-[20px] w-[53px] cursor-pointer`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
-                    setBet((prev: BetItemsProps[]) => [
+                    setBet((prev: BetItemsType[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -308,17 +483,15 @@ const Betting = ({
                 </div>
               </td>
             ))}
+
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: firstNum, type: "column", bet: betCost },
+                    { number: firstNum, type: "dozenColumn", bet: betCost },
                   ]);
                 }
               }}
@@ -333,18 +506,18 @@ const Betting = ({
               </div>
             </td>
           </tr>
+
           <tr>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
+            <td colSpan={2} className={`h-[20px] w-[53px]`}></td>
+
             {sixthLine.map((data, index) => (
               <td
                 key={index}
-                className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+                className={`h-[20px] w-[53px] cursor-pointer`}
                 onClick={() => {
                   if (money > 0 && !spinStart) {
                     setMoney((prev: number) => prev - betCost);
-                    setBet((prev: BetItemsProps[]) => [
+                    setBet((prev: BetItemsType[]) => [
                       ...prev,
                       { number: data.number, type: data.type, bet: betCost },
                     ]);
@@ -361,31 +534,20 @@ const Betting = ({
                 </div>
               </td>
             ))}
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
+            <td colSpan={3} className={`h-[20px] w-[53px]`}></td>
           </tr>
-        </thead>
-        <thead>
+
           <tr>
+            <td colSpan={3} className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: first12, type: "dozen", bet: betCost },
+                    { number: first12, type: "dozenColumn", bet: betCost },
                   ]);
                 }
               }}
@@ -399,18 +561,16 @@ const Betting = ({
                 {betCoin(first12)}
               </div>
             </td>
+            <td className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: second12, type: "dozen", bet: betCost },
+                    { number: second12, type: "dozenColumn", bet: betCost },
                   ]);
                 }
               }}
@@ -424,18 +584,16 @@ const Betting = ({
                 {betCoin(second12)}
               </div>
             </td>
+            <td className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               colSpan={7}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: third12, type: "dozen", bet: betCost },
+                    { number: third12, type: "dozenColumn", bet: betCost },
                   ]);
                 }
               }}
@@ -449,30 +607,23 @@ const Betting = ({
                 {betCoin(third12)}
               </div>
             </td>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
+            <td colSpan={3} className={`h-[20px] w-[53px]`}></td>
           </tr>
-          <tr>{tdArr}</tr>
+
           <tr>
+            <td colSpan={29} className={`h-[20px] w-[53px]`}></td>
+          </tr>
+          <tr>
+            <td colSpan={3} className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: oneTo18, type: "low", bet: betCost },
+                    { number: oneTo18, type: "lowHigh", bet: betCost },
                   ]);
                 }
               }}
@@ -486,18 +637,16 @@ const Betting = ({
                 {betCoin(oneTo18)}
               </div>
             </td>
+            <td className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: evenNum, type: "even", bet: betCost },
+                    { number: evenNum, type: "lowHigh", bet: betCost },
                   ]);
                 }
               }}
@@ -511,18 +660,16 @@ const Betting = ({
                 {betCoin(evenNum)}
               </div>
             </td>
+            <td className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: redNum, type: "red", bet: betCost },
+                    { number: redNum, type: "lowHigh", bet: betCost },
                   ]);
                 }
               }}
@@ -536,18 +683,16 @@ const Betting = ({
                 {betCoin(redNum)}
               </div>
             </td>
+            <td className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: blackNum, type: "black", bet: betCost },
+                    { number: blackNum, type: "lowHigh", bet: betCost },
                   ]);
                 }
               }}
@@ -561,18 +706,16 @@ const Betting = ({
                 {betCoin(blackNum)}
               </div>
             </td>
+            <td className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: oddNum, type: "odd", bet: betCost },
+                    { number: oddNum, type: "lowHigh", bet: betCost },
                   ]);
                 }
               }}
@@ -586,18 +729,16 @@ const Betting = ({
                 {betCoin(oddNum)}
               </div>
             </td>
+            <td className={`h-[20px] w-[53px]`}></td>
             <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"} h-[18px] w-[49px] cursor-pointer max-xl:w-[41px]`}
+              className={`h-[20px] w-[53px] cursor-pointer`}
               colSpan={3}
               onClick={() => {
                 if (money > 0 && !spinStart) {
                   setMoney((prev: number) => prev - betCost);
-                  setBet((prev: BetItemsProps[]) => [
+                  setBet((prev: BetItemsType[]) => [
                     ...prev,
-                    { number: nineteenTo36, type: "high", bet: betCost },
+                    { number: nineteenTo36, type: "lowHigh", bet: betCost },
                   ]);
                 }
               }}
@@ -611,12 +752,10 @@ const Betting = ({
                 {betCoin(nineteenTo36)}
               </div>
             </td>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
-            <td
-              className={`h-[18px] w-[49px] max-xl:w-[41px] ${mobile ? "max-lg:h-[10px] max-lg:w-[23.8px]" : "max-lg:w-[33px]"}`}
-            ></td>
+            <td colSpan={3} className={`h-[20px] w-[53px]`}></td>
+          </tr>
+          <tr>
+            <td colSpan={29} className={`h-[20px] w-[53px]`}></td>
           </tr>
         </thead>
       </table>

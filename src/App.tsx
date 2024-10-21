@@ -1,10 +1,10 @@
-import Main from "./Pages/Main";
+import Board from "./components/Board/Board";
 
 const App = () => {
   return (
-    <>
-      <Main />
-    </>
+    <div className="h-dvh bg-green-900">
+      <Board />
+    </div>
   );
 };
 
