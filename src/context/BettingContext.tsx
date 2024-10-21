@@ -33,10 +33,18 @@ const BettingContextProvider = ({ children }: Props) => {
   const [bet, setBet] = useState<BetItemsType[]>([]);
 
   useEffect(() => {
-    if (money < 5) {
-      setBetCost(1);
+    if (betCost > money) {
+      if (money >= 100) {
+        setBetCost(100);
+      } else if (money >= 10) {
+        setBetCost(10);
+      } else if (money >= 5) {
+        setBetCost(5);
+      } else {
+        setBetCost(1);
+      }
     }
-  }, [money]);
+  }, [betCost, money]);
 
   useEffect(() => {
     if (currentNumber !== null && !spinStart) {
